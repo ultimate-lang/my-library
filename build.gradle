@@ -46,10 +46,6 @@ dependencies {
     api 'org.sql2o:sql2o:1.6.0'
 }
 
-artifacts {
-    archives sourcesJar, javadocJar
-}
-
 test {
     useJUnitPlatform()
 }
