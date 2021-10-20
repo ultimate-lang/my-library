@@ -6,9 +6,9 @@ import java.sql.Statement;
 import java.util.List;
 import org.sql2o.Sql2o;
 
-public class SQLiteDataSource extends org.sqlite.SQLiteDataSource {
+public class SQLiteDS extends org.sqlite.SQLiteDataSource {
 
-    public SQLiteDataSource(String fileName) {
+    public SQLiteDS(String fileName) {
         String url = "jdbc:sqlite:" + fileName;
         this.setUrl(url);
     }

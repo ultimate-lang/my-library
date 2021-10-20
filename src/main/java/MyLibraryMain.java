@@ -1,5 +1,5 @@
 
-import com.github.javacommons.library.SQLiteDataSource;
+import com.github.javacommons.library.SQLiteDS;
 import com.github.javacommons.my_library.Account;
 import static org.junit.Assert.*;
 
@@ -36,7 +36,7 @@ public class MyLibraryMain {
     // we are using the in-memory H2 database
     //private final static String DATABASE_URL = "jdbc:h2:mem:account";
     //private final static String DATABASE_URL = "jdbc:sqlite:accout.db3";
-    private final static SQLiteDataSource ds = new SQLiteDataSource("accout.db3");
+    private final static SQLiteDS ds = new SQLiteDS("accout.db3");
 
     private Dao<Account, Integer> accountDao;
 

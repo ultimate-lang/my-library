@@ -20,7 +20,7 @@ import jodd.db.connection.DataSourceConnectionProvider;
 public class SQLiteDatabase {
 
     //String url;
-    private SQLiteDataSource ds;
+    private SQLiteDS ds;
     // OrmLite
     private ConnectionSource ormliteConnectionSource;
     private boolean createTable = true;
@@ -30,7 +30,7 @@ public class SQLiteDatabase {
 
     public SQLiteDatabase(String path) {
         //this.url = "jdbc:sqlite:" + path;
-        this.ds = new SQLiteDataSource(path);
+        this.ds = new SQLiteDS(path);
         Logger.setGlobalLogLevel(Level.ERROR);
         try {
             this.ormliteConnectionSource = new JdbcConnectionSource(this.ds.getUrl());
@@ -46,7 +46,7 @@ public class SQLiteDatabase {
         }
     }
 
-    public SQLiteDataSource getDataSource() {
+    public SQLiteDS getDataSource() {
         return this.ds;
     }
 
