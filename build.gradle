@@ -6,7 +6,7 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.0'
 }
 
-mainClassName = "MyLibraryMain"
+mainClassName = "com.github.javacommons.my_library.Main"
 
 compileJava.options.encoding = 'UTF-8'
 compileTestJava.options.encoding = 'UTF-8'
