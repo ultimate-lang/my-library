@@ -1,6 +1,5 @@
 package com.github.javacommons.library;
 
-import com.github.javacommons.library.SQLiteDataSource;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
