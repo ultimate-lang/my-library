@@ -18,6 +18,10 @@ repositories {
     maven { url 'https://jitpack.io' }
 }
 
+wrapper() {
+    gradleVersion = '7.2'
+}
+
 configurations.all {
     resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
 }
