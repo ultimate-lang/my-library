@@ -9,9 +9,11 @@ import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import javax.sql.DataSource;
 import jodd.db.DbOom;
 import jodd.db.DbSession;
 import jodd.db.ThreadDbSessionHolder;
@@ -46,14 +48,14 @@ public class SQLiteDatabase {
         }
     }
 
-    public SQLiteDS getDataSource() {
+    public /*SQLiteDS*/ DataSource getDataSource() {
         return this.ds;
     }
 
     public Connection getConnection() throws SQLException {
         return this.ds.getConnection();
     }
-    
+
     public ConnectionSource ormliteGetConnectionSource() {
         return this.ormliteConnectionSource;
     }
@@ -100,11 +102,11 @@ public class SQLiteDatabase {
     public DbOom dboomGetDB() {
         return this.db;
     }
-    
+
     public DbSession dboomGetSession() {
         return new DbSession(cp);
     }
-    
+
     public SQLiteQuery dboomCreateQuery(Connection conn, String sqlString) {
         return new SQLiteQuery(this.db, conn, sqlString);
     }
@@ -112,9 +114,31 @@ public class SQLiteDatabase {
     public SQLiteQuery dboomCreateQuery(DbSession session, String sqlString) {
         return new SQLiteQuery(this.db, session, sqlString);
     }
-    
+
     public SQLiteQuery dboomCreateQuery(String sqlString) {
         return new SQLiteQuery(this.db, sqlString);
     }
-    
+
+    public void executeUpdate(String sql) throws SQLException {
+        try (Connection conn = this.getConnection()) {
+            try (Statement stmt = conn.createStatement()) {
+                stmt.executeUpdate(sql);
+            }
+        }
+    }
+
+    public void executeUpdate(List<String> sqlList) throws SQLException {
+        try (Connection conn = this.getConnection()) {
+            try (Statement stmt = conn.createStatement()) {
+                for (String sql : sqlList) {
+                    stmt.executeUpdate(sql);
+                }
+            }
+        }
+    }
+
+    public void executeUpdateFromResource(String path) throws SQLException {
+        this.executeUpdate(Resources.asString(path));
+    }
+
 }
