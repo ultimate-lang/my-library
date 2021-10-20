@@ -13,7 +13,7 @@ public class SQLiteDataSource extends org.sqlite.SQLiteDataSource {
         this.setUrl(url);
     }
 
-    void executeUpdate(String sql) throws SQLException {
+    public void executeUpdate(String sql) throws SQLException {
         try(Connection conn = this.getConnection()) {
             try(Statement stmt = conn.createStatement()) {
                 stmt.executeUpdate(sql);
@@ -21,7 +21,7 @@ public class SQLiteDataSource extends org.sqlite.SQLiteDataSource {
         }
     }
     
-    void executeUpdate(List<String> sqlList) throws SQLException {
+    public void executeUpdate(List<String> sqlList) throws SQLException {
         try(Connection conn = this.getConnection()) {
             try(Statement stmt = conn.createStatement()) {
                 for(String sql: sqlList) {
@@ -31,11 +31,11 @@ public class SQLiteDataSource extends org.sqlite.SQLiteDataSource {
         }
     }
     
-    void executeUpdateFromResource(String path) throws SQLException {
+    public void executeUpdateFromResource(String path) throws SQLException {
         this.executeUpdate(Resources.asString(path));
     }
     
-    List<String> tableList() {
+    public List<String> tableList() {
         Sql2o db = new Sql2o(this);
         try (org.sql2o.Connection conn = db.open()) {
             final List<String> result = conn.createQuery("SELECT name FROM sqlite_master WHERE type='table' and name<>'sqlite_sequence'")
@@ -44,7 +44,7 @@ public class SQLiteDataSource extends org.sqlite.SQLiteDataSource {
         }
     }
     
-    boolean tableExists(String tableName) {
+    public boolean tableExists(String tableName) {
         List<String> tableList = this.tableList();
         return tableList.contains(tableName);
     }
