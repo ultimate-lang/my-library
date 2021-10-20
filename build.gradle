@@ -1,0 +1,61 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'java-library'
+    id 'com.github.johnrengelman.shadow' version '7.1.0'
+}
+
+mainClassName = "MyLibraryMain"
+
+compileJava.options.encoding = 'UTF-8'
+compileTestJava.options.encoding = 'UTF-8'
+
+sourceCompatibility = '8'
+targetCompatibility = '8'
+
+repositories {
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+}
+
+wrapper() {
+    gradleVersion = '7.2'
+}
+
+configurations.all {
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+
+dependencies {
+    // https://mvnrepository.com/artifact/junit/junit
+    implementation 'junit:junit:4.13.2'
+    // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
+    //implementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine
+    //implementation 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    // https://mvnrepository.com/artifact/com.j256.ormlite/ormlite-core
+    api 'com.j256.ormlite:ormlite-core:5.6'
+    // https://mvnrepository.com/artifact/com.j256.ormlite/ormlite-jdbc
+    api 'com.j256.ormlite:ormlite-jdbc:5.6'
+    // https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc
+    api 'org.xerial:sqlite-jdbc:3.36.0.3'
+    // https://mvnrepository.com/artifact/com.google.guava/guava
+    api 'com.google.guava:guava:31.0.1-jre'
+    // https://mvnrepository.com/artifact/org.sql2o/sql2o
+    api 'org.sql2o:sql2o:1.6.0'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+tasks.withType(JavaCompile) {
+    options.compilerArgs << '-Xlint:unchecked'
+    options.deprecation = true
+}
+
+shadowJar {
+    manifest {
+        attributes 'Main-Class': mainClassName
+    }
+}
