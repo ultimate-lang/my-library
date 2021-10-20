@@ -46,6 +46,10 @@ dependencies {
     api 'org.sql2o:sql2o:1.6.0'
 }
 
+artifacts {
+    archives sourcesJar, javadocJar
+}
+
 test {
     useJUnitPlatform()
 }
@@ -58,5 +62,26 @@ tasks.withType(JavaCompile) {
 shadowJar {
     manifest {
         attributes 'Main-Class': mainClassName
+    }
+}
+
+def createPom = {
+    name "Test Parent"
+    url "https://github.com/ultimate-lang/my-library"
+    inceptionYear "2021"
+}
+publishing {
+    publications {
+        maven(MavenPublication) {
+            artifactId "my-library"
+            pom.withXml {
+                asNode().appendNode("description", "This is a test.")
+                def parent = asNode().appendNode("parent")
+                parent.appendNode("groupId", "com.github.ultimate-lang")
+                parent.appendNode("artifactId", "my-library")
+                parent.appendNode("version", "1")
+                asNode().children().last() + createPom
+            }
+        }
     }
 }
