@@ -1,13 +1,14 @@
+package com.github.javacommons.library;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 import org.sql2o.Sql2o;
-import org.sqlite.SQLiteDataSource;
 
-public class MySQLiteDataSource extends SQLiteDataSource {
+public class SQLiteDataSource extends org.sqlite.SQLiteDataSource {
 
-    public MySQLiteDataSource(String fileName) {
+    public SQLiteDataSource(String fileName) {
         String url = "jdbc:sqlite:" + fileName;
         this.setUrl(url);
     }
@@ -31,7 +32,7 @@ public class MySQLiteDataSource extends SQLiteDataSource {
     }
     
     void executeUpdateFromResource(String path) throws SQLException {
-        this.executeUpdate(MyResources.asString(path));
+        this.executeUpdate(Resources.asString(path));
     }
     
     List<String> tableList() {

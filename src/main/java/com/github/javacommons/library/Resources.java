@@ -1,10 +1,12 @@
+package com.github.javacommons.library;
+
 import com.google.common.base.Charsets;
 import com.google.common.io.ByteSource;
 import com.google.common.io.CharSource;
 import java.io.IOException;
 import java.net.URL;
 
-public class MyResources {
+public class Resources {
 
     public static String asString(String resource) {
         URL url = com.google.common.io.Resources.getResource(resource);

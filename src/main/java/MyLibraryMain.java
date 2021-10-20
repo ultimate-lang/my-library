@@ -1,4 +1,5 @@
 
+import com.github.javacommons.library.SQLiteDataSource;
 import com.github.javacommons.my_library.Account;
 import static org.junit.Assert.*;
 
@@ -35,7 +36,7 @@ public class MyLibraryMain {
     // we are using the in-memory H2 database
     //private final static String DATABASE_URL = "jdbc:h2:mem:account";
     //private final static String DATABASE_URL = "jdbc:sqlite:accout.db3";
-    private final static MySQLiteDataSource ds = new MySQLiteDataSource("accout.db3");
+    private final static SQLiteDataSource ds = new SQLiteDataSource("accout.db3");
 
     private Dao<Account, Integer> accountDao;
 
@@ -80,10 +81,12 @@ public class MyLibraryMain {
         final List<String> createTableStatements = TableUtils.getCreateTableStatements(connectionSource.getDatabaseType(), Account.class);
         System.err.println(createTableStatements);
         
+        /*
         System.out.println(ds.tableList());
         if(!ds.tableExists("accounts")) {
             ds.executeUpdate(createTableStatements);
         }
+        */
 
         accountDao = DaoManager.createDao(connectionSource, Account.class);
 

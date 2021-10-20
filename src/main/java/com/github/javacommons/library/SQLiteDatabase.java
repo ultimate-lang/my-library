@@ -1,3 +1,6 @@
+package com.github.javacommons.library;
+
+import com.github.javacommons.library.SQLiteDataSource;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
@@ -18,7 +21,7 @@ import jodd.db.connection.DataSourceConnectionProvider;
 public class SQLiteDatabase {
 
     //String url;
-    private MySQLiteDataSource ds;
+    private SQLiteDataSource ds;
     // OrmLite
     private ConnectionSource ormliteConnectionSource;
     private boolean createTable = true;
@@ -28,7 +31,7 @@ public class SQLiteDatabase {
 
     public SQLiteDatabase(String path) {
         //this.url = "jdbc:sqlite:" + path;
-        this.ds = new MySQLiteDataSource(path);
+        this.ds = new SQLiteDataSource(path);
         Logger.setGlobalLogLevel(Level.ERROR);
         try {
             this.ormliteConnectionSource = new JdbcConnectionSource(this.ds.getUrl());
@@ -44,7 +47,7 @@ public class SQLiteDatabase {
         }
     }
 
-    public MySQLiteDataSource getDataSource() {
+    public SQLiteDataSource getDataSource() {
         return this.ds;
     }
 
